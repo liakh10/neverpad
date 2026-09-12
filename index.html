@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Never Pad</title>
+<meta name="description" content="Never Pad. Launch coins paired with things that never happen again. The first time is the reference. Every day it does not repeat is the market." />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#efe9dc;--paper:rgba(255,255,255,.55);--paper2:#fbf8f1;--ink:#241f18;--dim:#7a7264;--line:rgba(36,31,24,.12);--red:#c0392b;--red-soft:rgba(192,57,43,.1);--r:18px;--pad:clamp(16px,3vw,48px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 15% 0%,#fff6e0,transparent 45%),radial-gradient(circle at 100% 100%,#e6dcc7,transparent 40%)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+.mono{font-family:"Spline Sans Mono",ui-monospace,monospace}
+.k{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.in{width:min(1180px,100%);margin:0 auto}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 var(--pad);background:rgba(239,233,220,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:18px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block}
+.tabs{display:flex;gap:2px}
+.tabs a{padding:8px 12px;border-radius:999px;font-size:13px;font-weight:600;color:var(--dim)}
+.tabs a:hover{color:var(--ink);background:var(--paper)}
+.nav .r{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--paper2);font-weight:700;font-size:13px;white-space:nowrap;transition:transform .1s,box-shadow .1s,background .1s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(36,31,24,.12)}
+.btn.go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn img{width:14px;height:14px;object-fit:contain}
+section{padding:clamp(48px,7vw,96px) var(--pad)}
+/* hero */
+.hero .in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:clamp(24px,4vw,64px);align-items:center}
+h1{font-weight:800;font-size:clamp(40px,6.2vw,82px);line-height:1;letter-spacing:-.035em}
+h1 i{font-style:normal;color:var(--red)}
+.sub{margin-top:20px;max-width:50ch;font-size:clamp(15px,1.5vw,18px);color:var(--ink)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.acts .btn{height:48px;padding:0 22px;font-size:14px}
+/* the board */
+.board{background:#15120f;border-radius:var(--r);padding:clamp(16px,2.4vw,26px);box-shadow:0 30px 60px rgba(36,31,24,.25),inset 0 0 0 1px rgba(255,255,255,.06);color:#f4efe4}
+.board .k{color:#8c8474}
+.flaps{display:flex;gap:6px;margin:12px 0 8px}
+.flap{position:relative;width:clamp(44px,6vw,72px);aspect-ratio:.7;background:#2a2521;border-radius:8px;display:grid;place-items:center;font-family:"Spline Sans Mono",monospace;font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1;color:#fff;box-shadow:inset 0 -2px 0 rgba(255,255,255,.06),inset 0 2px 0 rgba(0,0,0,.4);overflow:hidden}
+.flap:after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#0f0d0b}
+.flap.tick{animation:flip .35s ease-out}
+@keyframes flip{0%{transform:rotateX(-70deg)}100%{transform:rotateX(0)}}
+.board .ev{margin-top:14px;font-weight:600;font-size:15px}
+.board .ev b{color:#ff8a7a;font-weight:700}
+.board .since{margin-top:6px;font-family:"Spline Sans Mono",monospace;font-size:12px;color:#8c8474}
+/* markets */
+.h2{font-weight:800;font-size:clamp(26px,3.6vw,44px);letter-spacing:-.03em;line-height:1.05}
+.h2 i{font-style:normal;color:var(--red)}
+.lead{margin-top:10px;max-width:60ch;color:var(--dim)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(36,31,24,.1)}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tk{font-family:"Spline Sans Mono",monospace;font-weight:600;font-size:13px;padding:4px 9px;border-radius:999px;background:var(--red-soft);color:var(--red)}
+.tag{font-family:"Spline Sans Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+.tag.mine{color:var(--red);border-color:var(--red)}
+.ev1{font-weight:700;font-size:16px;line-height:1.3}
+.arrow{display:flex;align-items:center;gap:8px;color:var(--dim);font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.arrow:before{content:"";flex:1;height:1px;background:var(--line)}
+.ev2{font-weight:600;color:var(--red)}
+.days{display:flex;align-items:baseline;gap:8px;font-family:"Spline Sans Mono",monospace}
+.days b{font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.days span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.card .src{font-family:"Spline Sans Mono",monospace;font-size:11px;color:var(--dim)}
+/* how */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.step .k{color:var(--red)}
+.step b{display:block;margin-top:8px;font-weight:800;font-size:18px;letter-spacing:-.02em}
+.step p{margin-top:6px;color:var(--dim);font-size:14px}
+/* launch flow */
+.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:16px;margin-top:24px}
+.form{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,2.6vw,28px);display:grid;gap:14px}
+.f{display:grid;gap:6px}
+.f label{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.f input,.f select{height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
+.f input:focus,.f select:focus{border-color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:13px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.preview{background:#15120f;color:#f4efe4;border-radius:var(--r);padding:22px;display:grid;gap:12px;align-content:start}
+.preview .mono{color:#8c8474;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.preview .big{font-family:"Spline Sans Mono",monospace;font-weight:600;font-size:28px;color:#ff8a7a}
+.preview .ev1{color:#fff}
+.preview .ev2{color:#ff8a7a}
+.preview .days b{color:#fff}
+.preview .days span{color:#8c8474}
+.note{font-size:12px;color:var(--dim)}
+/* faq */
+.faq{display:grid;gap:10px;margin-top:24px;max-width:820px}
+details{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary:after{content:"+";color:var(--dim)}
+details[open] summary:after{content:"−"}
+details p{margin-top:10px;color:var(--dim)}
+/* contract */
+.ct{background:#15120f;color:#f4efe4;border-radius:var(--r);padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;cursor:pointer;max-width:900px;margin:24px auto 0}
+.ct dl{display:grid;grid-template-columns:110px 1fr;gap:6px 14px}
+.ct dt{font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8c8474;padding-top:3px}
+.ct dd{word-break:break-all}
+.ct dd.ca{font-family:"Spline Sans Mono",monospace;font-weight:600;color:#ff8a7a}
+.ct .cp{font-family:"Spline Sans Mono",monospace;font-size:11px;color:#8c8474;margin-top:8px}
+footer{padding:20px var(--pad) 36px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--line)}
+@media (max-width:900px){
+  .tabs{display:none}
+  .hero .in{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr}
+  .ct{grid-template-columns:1fr} .ct dl{grid-template-columns:1fr}
+}
+@media (max-width:560px){ .grid{grid-template-columns:1fr} .steps{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="logo" href="#top"><i></i><span data-name>Never Pad</span></a>
+  <div class="tabs"><a href="#markets">Markets</a><a href="#how">How it works</a><a href="#launch">Launch</a><a href="#faq">FAQ</a></div>
+  <div class="r"><a class="btn" data-link="x" href="https://x.com" aria-label="X"><img src="assets/img/x.svg" alt="X" /></a><a class="btn go" data-link="pons" href="https://www.ponsfamily.com/launchpad"><img src="assets/img/pons.png" alt="" style="filter:invert(1)" />Launch app</a></div>
+</nav>
+
+<main id="top">
+  <section class="hero"><div class="in">
+    <div>
+      <div class="k">Never Pad · Robinhood Chain</div>
+      <h1 style="margin-top:14px">Something happened once. <i>Launch against it never happening again.</i></h1>
+      <p class="sub">The first time is the reference. Every day it does not repeat is the market. Never Pad lets you launch coins around things that already happened, and hold the possibility that they never do again.</p>
+      <div class="acts"><a class="btn go" data-link="pons" href="https://www.ponsfamily.com/launchpad"><img src="assets/img/pons.png" alt="" style="filter:invert(1)" />Launch app</a><a class="btn" href="#markets">Browse markets</a><a class="btn" href="#launch">Launch a coin</a></div>
+    </div>
+    <div class="board" id="board">
+      <div class="k">Days without a repeat</div>
+      <div class="flaps" id="flaps"></div>
+      <div class="ev" id="bev"></div>
+      <div class="since" id="bsince"></div>
+    </div>
+  </div></section>
+
+  <section id="markets"><div class="in">
+    <div class="h2">Coins waiting for something to <i>never happen again</i></div>
+    <p class="lead">Browse by the event you are counting from. Markets tagged EXAMPLE are interface examples, prices are not shown because nothing here is traded yet.</p>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section id="how"><div class="in">
+    <div class="h2">How <span data-name>Never Pad</span> works</div>
+    <p class="lead">Not a token launchpad. A launchpad built around things not repeating.</p>
+    <div class="steps">
+      <div class="step"><div class="k">01</div><b>What happened</b><p>Describe the event that already occurred. Subject, value, date, source. This becomes the reference and is fixed forever.</p></div>
+      <div class="step"><div class="k">02</div><b>Define the never</b><p>What counts as it happening again. Same thing, the next level, or your own condition. The coin is right as long as it never does.</p></div>
+      <div class="step"><div class="k">03</div><b>Create the coin</b><p>A coin is minted, paired with the never condition, with a counter that starts at the reference date.</p></div>
+      <div class="step"><div class="k">04</div><b>Wait</b><p>Every day without a repeat the counter goes up. If it repeats, the counter resets to zero and everyone can see it.</p></div>
+    </div>
+  </div></section>
+
+  <section id="launch"><div class="in">
+    <div class="h2">Try the pad</div>
+    <p class="lead">A simulated launch. Nothing is deployed, the coin lives in this browser and joins the markets above.</p>
+    <div class="flow">
+      <div class="form">
+        <div class="f"><label>01 · What happened</label><input id="fev" placeholder="X had a global outage" maxlength="80" /></div>
+        <div class="f"><label>Subject · ticker</label><input id="ftk" placeholder="X" maxlength="10" /></div>
+        <div class="f"><label>When</label><input id="fdt" type="date" /></div>
+        <div class="f"><label>02 · Define the never</label><div class="chips" id="chips"><button class="chip on" data-v="never again">Never again</button><button class="chip" data-v="never the next level">Never the next level</button><button class="chip" data-v="custom">Custom</button></div><input id="fcu" placeholder="Write the never condition" maxlength="80" hidden /></div>
+        <div class="acts" style="margin-top:4px"><button class="btn red" id="flaunch">Launch it</button><button class="btn" id="freset">Clear my coins</button></div>
+        <p class="note">Reference and never condition are fixed at launch. Even in the simulation.</p>
+      </div>
+      <div class="preview" id="prev">
+        <div class="mono">Live preview</div>
+        <div class="big" id="ptk">$NEVER</div>
+        <div class="ev1" id="pev">Something happened</div>
+        <div class="arrow" style="color:#8c8474"><span id="pcond">never again</span></div>
+        <div class="days"><b id="pdays">0</b><span>days without a repeat</span></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="faq"><div class="in">
+    <div class="h2">Questions</div>
+    <div class="faq">
+      <details><summary>Is this a prediction market?</summary><p>No. A prediction market pays when something happens. Here the coin is paired with it not happening. The counter is the product.</p></details>
+      <details><summary>What if it happens again?</summary><p>The counter resets to zero. The coin stays where it is, the reset is written into it, and everyone who held it saw the number.</p></details>
+      <details><summary>What if nothing ever happened?</summary><p>Then there is nothing to never repeat. The reference event is required.</p></details>
+      <details><summary>Are the example markets real?</summary><p>No. Markets tagged EXAMPLE show how the product reads. Coins you launch on this page are simulated and live in your browser.</p></details>
+      <details><summary>Where does the counter come from?</summary><p>From the reference date. It is a clock, not an oracle. Repeats in the examples are not tracked automatically.</p></details>
+    </div>
+    <div class="ct" id="ct" title="Copy contract">
+      <div><dl><dt>Name</dt><dd data-name>Never Pad</dd><dt>Ticker</dt><dd data-ticker>$NEVERPAD</dd><dt>Chain</dt><dd>Robinhood Chain · Pons</dd><dt>Contract</dt><dd class="ca" id="ca">soon</dd></dl><div class="cp" id="cp">tap to copy</div></div>
+      <div class="acts" style="margin:0"><a class="btn red" data-link="pons" href="https://www.ponsfamily.com/launchpad"><img src="assets/img/pons.png" alt="" style="filter:invert(1)" />Buy on Pons</a><a class="btn" data-link="dex" href="https://dexscreener.com/robinhood">Chart</a><a class="btn" data-link="x" href="https://x.com">X</a></div>
+    </div>
+  </div></section>
+</main>
+<footer><span data-name>Never Pad</span><span>Something happened. Launch against it never happening again.</span><span>Robinhood Chain · Pons</span></footer>
+
+<script>
+(function(){
+  var S = window.SITE, CA = (S.CA || "SOON").trim(), HAS = CA !== "SOON" && CA !== "";
+  document.querySelectorAll('[data-name]').forEach(function(e){ e.textContent = S.NAME; });
+  document.querySelectorAll('[data-ticker]').forEach(function(e){ e.textContent = S.TICKER; });
+  document.title = S.NAME;
+  document.querySelectorAll('[data-link="pons"]').forEach(function(a){ a.href = HAS ? window.PONS_HOME + '/' + CA : window.PONS_HOME; a.target = '_blank'; a.rel = 'noopener'; });
+  document.querySelectorAll('[data-link="dex"]').forEach(function(a){ a.href = HAS ? window.DEX_HOME + '/' + CA : window.DEX_HOME; a.target = '_blank'; a.rel = 'noopener'; });
+  document.querySelectorAll('[data-link="x"]').forEach(function(a){ a.href = S.X_URL || 'https://x.com'; a.target = '_blank'; a.rel = 'noopener'; });
+  var ca = document.getElementById('ca'), cp = document.getElementById('cp'); ca.textContent = HAS ? CA : 'soon';
+  document.getElementById('ct').addEventListener('click', function(e){ if(e.target.closest('a')) return; var old = cp.textContent; if(HAS){ if(navigator.clipboard) navigator.clipboard.writeText(CA); cp.textContent = 'copied'; } else cp.textContent = 'not deployed yet'; setTimeout(function(){ cp.textContent = old; }, 1300); });
+
+  /* example markets: event 01 happened, event 02 must never */
+  var EX = [
+    { tk: 'X', ev: 'X had a global outage', cond: 'never again', date: '2026-08-14', src: 'status page' },
+    { tk: 'NVDA', ev: 'NVDA dropped 10% in a session', cond: 'never another 10% day', date: '2026-06-27', src: 'closing prices' },
+    { tk: 'FED', ev: 'The Fed cut rates by 25bps', cond: 'never cuts again', date: '2026-07-29', src: 'FOMC statement' },
+    { tk: 'FROG', ev: 'A frog meme trended #1 worldwide', cond: 'never #1 again', date: '2026-05-02', src: 'trends' },
+    { tk: 'ETH5K', ev: 'ETH reached $5,000', cond: 'never below $5,000 again', date: '2026-09-03', src: 'spot, major exchanges' },
+    { tk: 'BTC150', ev: 'BTC broke $150,000', cond: 'never below $150,000 again', date: '2026-09-10', src: 'spot, major exchanges' },
+    { tk: 'AAPL', ev: 'Apple announced a buyback', cond: 'never announces another', date: '2026-05-01', src: 'earnings call' },
+    { tk: 'TSLA', ev: 'Musk mentioned TSLA on X', cond: 'never mentions it again', date: '2026-09-11', src: 'x.com' },
+    { tk: 'VOL1B', ev: 'A token cleared $1B in daily volume', cond: 'never clears $1B again', date: '2026-08-22', src: 'dex data' }
+  ];
+  var KEY = 'neverpad:coins', mine = []; try{ mine = JSON.parse(localStorage.getItem(KEY) || '[]'); }catch(e){}
+  function days(d){ return Math.max(0, Math.floor((Date.now() - new Date(d + 'T00:00:00Z').getTime()) / 864e5)); }
+  function esc(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function card(m, own){ return '<div class="card"><div class="top"><span class="tk">$' + esc(m.tk) + '</span><span class="tag' + (own ? ' mine' : '') + '">' + (own ? 'yours · simulated' : 'example') + '</span></div><div class="ev1">' + esc(m.ev) + '</div><div class="arrow"><span>' + esc(m.cond) + '</span></div><div class="days"><b>' + days(m.date) + '</b><span>days without a repeat</span></div><div class="src">since ' + m.date + (m.src ? ' · ' + esc(m.src) : '') + '</div></div>'; }
+  var grid = document.getElementById('grid');
+  function render(){ grid.innerHTML = mine.slice().reverse().map(function(m){ return card(m, true); }).join('') + EX.map(function(m){ return card(m, false); }).join(''); }
+  render();
+
+  /* the board: the freshest reference, counting live */
+  var top = mine.length ? mine[mine.length - 1] : EX[5], flaps = document.getElementById('flaps'), shown = '';
+  function paintBoard(){ var n = days(top.date), s = String(n).padStart(3, '0'); if(s !== shown){ flaps.innerHTML = s.split('').map(function(c){ return '<div class="flap tick">' + c + '</div>'; }).join(''); shown = s; }
+    document.getElementById('bev').innerHTML = esc(top.ev) + ' · <b>' + esc(top.cond) + '</b>'; var ms = Date.now() - new Date(top.date + 'T00:00:00Z').getTime(), h = Math.floor(ms / 36e5) % 24, mi = Math.floor(ms / 6e4) % 60, se = Math.floor(ms / 1e3) % 60; document.getElementById('bsince').textContent = 'since ' + top.date + ' · ' + String(h).padStart(2, '0') + ':' + String(mi).padStart(2, '0') + ':' + String(se).padStart(2, '0') + ' into today'; }
+  paintBoard(); setInterval(paintBoard, 1000);
+
+  /* launch flow: simulated */
+  var fev = document.getElementById('fev'), ftk = document.getElementById('ftk'), fdt = document.getElementById('fdt'), fcu = document.getElementById('fcu'), chips = document.getElementById('chips'), cond = 'never again';
+  fdt.value = new Date().toISOString().slice(0, 10);
+  function condText(){ return cond === 'custom' ? (fcu.value.trim() || 'never again') : cond; }
+  function preview(){ var tk = (ftk.value.trim() || 'NEVER').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10); document.getElementById('ptk').textContent = '$' + tk; document.getElementById('pev').textContent = fev.value.trim() || 'Something happened'; document.getElementById('pcond').textContent = condText(); document.getElementById('pdays').textContent = fdt.value ? days(fdt.value) : 0; }
+  [fev, ftk, fdt, fcu].forEach(function(i){ i.addEventListener('input', preview); });
+  chips.addEventListener('click', function(e){ var b = e.target.closest('.chip'); if(!b) return; chips.querySelectorAll('.chip').forEach(function(c){ c.classList.toggle('on', c === b); }); cond = b.dataset.v; fcu.hidden = cond !== 'custom'; preview(); });
+  document.getElementById('flaunch').addEventListener('click', function(){ if(!fev.value.trim()){ fev.focus(); return; } var m = { tk: (ftk.value.trim() || 'NEVER').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10), ev: fev.value.trim(), cond: condText(), date: fdt.value || new Date().toISOString().slice(0, 10), src: 'you' }; mine.push(m); localStorage.setItem(KEY, JSON.stringify(mine)); top = m; shown = ''; paintBoard(); render(); document.getElementById('markets').scrollIntoView({ behavior: 'smooth' }); });
+  document.getElementById('freset').addEventListener('click', function(){ mine = []; localStorage.removeItem(KEY); top = EX[5]; shown = ''; paintBoard(); render(); });
+  preview();
+})();
+</script>
+</body>
+</html>
